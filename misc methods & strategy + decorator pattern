@@ -1,0 +1,221 @@
+class Program
+    {
+        static void Main(string[] args)
+        {
+            //FilterType filterType = new FilterType();
+            //filterType.Create(new DefaultFilter());
+            //filterType.Create(new CustomContent());
+            //filterType.Create(new CustomFilter());
+            //    DoSomething something = new DoSomething();
+            //    something.Process(Callback, AnotherCallback);
+
+            Thread t1 = new Thread(Process1);
+            Thread t2 = new Thread(Process1);
+
+            //t1.IsBackground = true;
+            t1.Start();
+            t2.Start();
+
+
+            //Process1();
+            //Process2();
+
+
+            List<int> stringList = new List<int>();
+            for (int i=0; i < 10; i++)
+            {
+                stringList.Add(i);
+            }
+
+            IEnumerable<int> StringIE = stringList as IEnumerable<int>;
+            IEnumerator<int> StringIEnumerator = StringIE.GetEnumerator();
+
+            //foreach (int x in StringIE)
+            //{
+            //    if (x < 5)
+            //        Console.WriteLine(x);
+            //    else
+            //        DoSomethingElse(StringIE);
+            //}
+
+            while (StringIEnumerator.MoveNext())
+            {
+                if (Convert.ToInt16(StringIEnumerator.Current) < 5)
+                {
+                    Console.WriteLine(StringIEnumerator.Current.ToString());
+                }
+                else
+                {
+                    DoSomethingElse(StringIEnumerator);
+                }
+            }
+
+            //Generics Method Call
+            //List<int> test = new List<int>();
+            //SomeMethod("test", "test");
+            Console.ReadLine();
+        }
+
+        
+        static void SomeMethod<a,b>(a ifirst, b isecond)
+        {
+
+        }
+       
+
+
+        static void DoSomethingElse(IEnumerable<int> x)
+        {
+            foreach (int y in x)
+            {
+                    Console.WriteLine(y);
+            }
+        }
+
+        static void DoSomethingElse(IEnumerator<int> x)
+        {
+            while (x.MoveNext())
+            {
+                    Console.WriteLine(x.Current.ToString());
+            }
+        }
+
+        //static void DoSomethingElse2(IEnumerator<int> x)
+        //{
+
+        //}
+
+        static void Process1()
+        {
+            object obj = new object();
+            lock (obj)
+            {
+                for (int i = 0; i < 100000; i++)
+                {
+                    Console.Write(i);
+                    //Thread.Sleep(5000);
+                }
+            }
+
+        }
+
+        static void Process2()
+        {
+            for (int i = 0; i < 100000; i++)
+            {
+                Console.Write("2");
+                //Thread.Sleep(5000);
+            }
+        }
+
+
+        //static void AnotherCallback(int i)
+        //{
+        //    Console.Write(i);
+        //}
+
+        //static void Callback(int i)
+        //{
+        //    Console.Write(i);
+        //}
+    }
+
+    //class DoSomething
+    //{
+    //    public delegate void SampleDelegate(int i);
+    //    public delegate void SampleDelegate2(int i);
+
+    //    public void Process(SampleDelegate obj, SampleDelegate2 obj2)
+    //    {
+    //       for (int i=0; i<10000; i++)
+    //        {
+    //            obj(i);
+    //            obj2(1);
+    //        }
+    //    }
+    //}
+
+
+
+    //class FilterType
+    //{
+    //    string name { get; set; }
+
+    //    public FilterType Create(filters filter)
+    //    {
+    //        filter.CreateFilter();
+    //        FilterType result = new FilterType();
+    //        return result;
+    //    }
+
+    //}
+
+    //abstract class filters
+    //{
+    //    public abstract void CreateFilter();
+
+    //    public void RemoveFilter()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+
+    //    public void SortFilter()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
+
+    //class DefaultFilter : filters
+    //{
+    //    public override void CreateFilter()
+    //    {
+    //        Console.WriteLine("Create Default Filter");
+
+    //    }
+    //}
+
+    //abstract class CustomContentDecorator : filters
+    //{
+    //    private string _sCustomContent = "Create Custom Content";
+
+    //    //public string SCustomContent
+    //    //{
+    //    //    get => _sCustomContent;
+    //    //    set => _sCustomContent = value;
+    //    //}
+
+    //    public string GetCustomContent()
+    //    {
+    //        return _sCustomContent;
+    //    }
+
+    //}
+
+    //class CustomContent : CustomContentDecorator
+    //{
+    //    public override void CreateFilter()
+    //    {
+    //        string stest = GetCustomContent(); 
+    //        Console.WriteLine("Create Custom Content");
+    //    }
+
+    //}
+
+  
+
+    //class CustomFilter : filters
+    //{
+    //    public override void CreateFilter()
+    //    {
+    //        Console.WriteLine("Create Custom Filter");
+    //    }
+    //}
+
+    
+
+}
+
+//private sealed class Test
+//    {
+
+//    }
