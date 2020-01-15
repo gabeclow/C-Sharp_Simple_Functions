@@ -1,0 +1,680 @@
+public class Program
+    {
+        static void Main(string[] args)
+        {
+            Program program = new Program();
+            //    //Console.WriteLine("result: " + DuplicateCount("Indivisibilities") + "; should return 2");
+            //    //Console.WriteLine("result: " + IsSmooth("This sounds super.") + "; Expected: true");
+            //    //Console.WriteLine(printLetters("A4B5C2"));
+            //    //Console.WriteLine(ConvertToHex("test"));
+            //    //Console.WriteLine(Days(11, 2019));
+            //    //Console.WriteLine(PowerRanger(1, 1, 5));
+            //    //Console.WriteLine(NextPrime(24));
+            //    //Console.WriteLine(program.TwoSum(new int[] { 3,2,3 }, 6));
+            //    //Console.WriteLine(program.evenNumber(new int[] { 122, 2, 22, 2222 }));
+            //    //Console.WriteLine(program.LongestCommonPrefix(new string[] { "ca","cad","cads"}));
+            //    //Console.WriteLine(program.SubtractProductAndSum(4421));
+            //    //Console.WriteLine(program.NumJewelsInStones("aA", "aAAbbbbb"));
+            //    //Console.WriteLine(program.defangIPaddr("1.1.1.1"));
+            //    Console.WriteLine(program.FindNumbers(new int[] { 12, 345, 2, 6, 7896 }));
+            //Console.WriteLine(program.CountSubstrings("aaa"));
+            //Console.WriteLine(program.factorial(9000));
+            //Console.WriteLine(program.iterativeFactorial(9000));
+            //Console.WriteLine(program.iterativeFactorialTopDown(900000000));//9,794ms, 98,229ms
+            //Console.WriteLine(program.iterativeFactorialBottomUp(900000000));//9,854ms, 98,477ms
+            //Console.WriteLine(program.fibRecursive(5));
+
+            //program.BalancedStringSplit("RLRRLLRLRL");
+            Console.ReadLine();
+        }
+
+        /*Input: s = "RLRRLLRLRL"
+            Output: 4
+            Explanation: s can be split into "RL", "RRLL", "RL", "RL", each substring contains same number of 'L' and 'R'.
+         */
+        //public int BalancedStringSplit(string s)
+        //{
+        //    int R = 0;
+        //    int L = 0;
+        //    char[] stringArr = s.ToCharArray();
+        //    for(int i=0; i<stringArr.Length; i++)
+        //    {
+
+        //    }
+
+        //}
+
+
+        public void findStrictlyIncreasingNum(int start,string Out, int n)
+        {
+            if (n == 0)
+            {
+                Console.Write(Out + " ");
+                return;
+            }
+            for (int i = start; i <= 9; i++)
+            {
+                string str = Out + Convert.ToInt32(i);
+                findStrictlyIncreasingNum(i + 1, str, n - 1);
+            }
+        }
+
+
+
+        // returns number of ways to get up to iStairs
+        public double stairs(int iStairs)
+        {
+            if(iStairs == 1)
+            {
+                return 1;
+            }
+            if(iStairs == 2)
+            {
+                return 2;
+            }
+            return (stairs(iStairs-1) + stairs(iStairs-2));
+        }
+
+
+        public int fibRecursive(int iNumber) //0 1 1 2 3 5 8 13
+        {
+            int iResult;
+
+            if (iNumber <=1)
+            {
+                return iNumber;
+            }
+
+            iResult = fibRecursive(iNumber - 2) + fibRecursive(iNumber - 1);
+            return iResult;
+        }
+
+        public double factorial(int iNumber)
+        {
+            double Result = 0;
+            //fact 1 = 0;
+            if(iNumber == 0)
+            {
+                return 1;
+            }
+            
+            Result = iNumber * factorial((iNumber - 1));
+            //return  iNumber * factorial((iNumber - 1));
+            return Result;
+        }
+
+        public double iterativeFactorialTopDown(int iNumber)
+        {
+            if (iNumber == 0)
+            {
+                return 1;
+            }
+            double result = iNumber;
+            for(int i=iNumber-1; i>0; i--)
+            {
+                result *= i;
+            }
+            return result;
+        }
+        public double iterativeFactorialBottomUp(int iNumber)
+        {
+            double result = 1;
+            for (int i = 1; i<iNumber; i++)
+            {
+                result *= i;
+            }
+            return result;
+        }
+        public double whileLoopFactorial(int iNumber)
+        {
+            if (iNumber == 0)
+            {
+                return 1;
+            }
+            double result = iNumber;
+            while(iNumber > 1)
+            {
+                result *= iNumber - 1;
+                iNumber--;
+            }
+            return result;
+        }
+
+
+
+        public int CountSubstrings(string s)
+        {
+            if (String.IsNullOrEmpty(s)) return 0;
+            int counter = 0;
+            int i = 0, j = 0;
+            for (int k = 0; k < s.Length; k++)
+            {
+                //odd
+                i = k; j = k;
+                while (i >= 0 && j < s.Length && s[i] == s[j])
+                {
+                    counter++;
+                    i--; j++;
+                }
+
+                //even
+                i = k;
+                j = k + 1;
+
+                while (i >= 0 && j < s.Length && s[i] == s[j])
+                {
+                    counter++;
+                    i--; j++;
+                }
+            }
+            return counter;
+        }
+
+
+
+
+        public int FindNumbers(int[] nums)
+        {
+            int counter = 0;
+            foreach (int num in nums)
+            {
+                switch (Digits_BinarySearch(num))
+                {
+                    case 1:
+                        break;
+                    case 2:
+                        counter++;
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        counter++;
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        counter++;
+                        break;
+                    case 7:
+                        break;
+                    case 8:
+                        counter++;
+                        break;
+                    case 9:
+                        break;
+                    case 10:
+                        counter++;
+                        break;
+                }
+            }
+            return counter;
+        }
+
+
+        public static int Digits_BinarySearch(int n)
+        {
+            if (n >= 0)
+            {
+                if (n <= 9999) // 0 .. 9999
+                {
+                    if (n <= 99) // 0 .. 99
+                    {
+                        return (n <= 9) ? 1 : 2;
+                    }
+                    else // 100 .. 9999
+                    {
+                        return (n <= 999) ? 3 : 4;
+                    }
+                }
+                else // 10000 .. int.MaxValue
+                {
+                    if (n <= 9_999_999) // 10000 .. 9,999,999
+                    {
+                        if (n <= 99_999)
+                            return 5;
+                        else if (n <= 999_999)
+                            return 6;
+                        else
+                            return 7;
+                    }
+                    else // 10,000,000 .. int.MaxValue
+                    {
+                        if (n <= 99_999_999)
+                            return 8;
+                        else if (n <= 999_999_999)
+                            return 9;
+                        else
+                            return 10;
+                    }
+                }
+            }
+            else
+            {
+                if (n >= -9999) // -9999 .. -1
+                {
+                    if (n >= -99) // -99 .. -1
+                    {
+                        return (n >= -9) ? 1 : 2;
+                    }
+                    else // -9999 .. -100
+                    {
+                        return (n >= -999) ? 3 : 4;
+                    }
+                }
+                else // int.MinValue .. -10000
+                {
+                    if (n >= -9_999_999) // -9,999,999 .. -10000
+                    {
+                        if (n >= -99_999)
+                            return 5;
+                        else if (n >= -999_999)
+                            return 6;
+                        else
+                            return 7;
+                    }
+                    else // int.MinValue .. -10,000,000 
+                    {
+                        if (n >= -99_999_999)
+                            return 8;
+                        else if (n >= -999_999_999)
+                            return 9;
+                        else
+                            return 10;
+                    }
+                }
+            }
+        }
+        
+
+        public string defangIPaddr(string address)
+        {
+            return address.Replace(".", "[.]");
+        }
+
+
+       public int NumJewelsInStones(string J, string S)
+        {
+            int counter = 0;
+            for(int i=0; i<J.Length; i++)
+            {
+                char distinct = J[i];
+                for(int j=0; j<S.Length; j++)
+                {
+                    if(S[j]== distinct)
+                    {
+                        counter++;
+                        S.Remove(j,1);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+            return counter;
+        }
+
+       public int SubtractProductAndSum(int n)
+        {
+            int tempProduct = 1;
+            int tempAdd = 0;
+            try
+            {
+             int mod = n; //for modulus operation
+             int div = n; //for divisor operation
+             while (div > 0)
+                        {
+                            mod = div % 10; //this returns the last digit of a number
+                            tempProduct *= mod;
+                            tempAdd += mod;
+                            div = div / 10; //cut the last digit off of the number
+                        }
+                return tempProduct - tempAdd;
+            }
+            catch(Exception)
+            {
+                return 0;
+            }
+        }
+
+
+
+        public string LongestCommonPrefix(string[] strs)
+        {
+            if (strs.Length < 1)
+            {
+                return "";
+            }
+            if(strs.Length == 1)
+            {
+                return strs[0];
+            }
+            string firstWord = strs[0];
+            string prefixBuilder = "";
+            int counter = 0;
+            char currentLetter = '0';
+            for (int i = 0; i < firstWord.Length; i++)
+            {
+                bool flag = true;
+                
+                foreach (string word in strs)
+                {
+                    try
+                    {
+                        char temp = firstWord[counter];
+                        char temp2 = word[counter];
+                        if (temp == temp2)
+                        {
+                            currentLetter = temp;
+                        }
+                        else
+                        {
+                            flag = false;
+                            continue;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        flag = false;
+                        continue;
+                    }
+                }
+                if (flag)
+                {
+                    prefixBuilder += currentLetter;
+                }
+
+                counter++;
+            }
+            if (prefixBuilder.Length >= 1)
+            {
+                return prefixBuilder;
+            }
+            else
+            {
+                return "";
+            }
+
+        }
+
+
+
+        public int evenNumber(int[] array)
+            {
+                int counter = 0;
+                foreach(int i in array)
+                {
+                //int mod = i % 10; get last number
+                    int theLength = i.ToString().Length;
+                    if(theLength %2 == 0)
+                    {
+                        counter++;
+                    }
+                }
+                return counter;
+            }
+        
+        /*
+         * Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+         * You may assume that each input would have exactly one solution, and you may not use the same element twice.
+        */
+        public int[] TwoSum(int[] nums, int target)
+        {
+            for (int i = 0; i < nums.Length; i++)
+            {
+                for (int j = 0; j < nums.Length; j++)
+                {
+                    int theNumber = nums[i] + nums[j];
+                    if (theNumber == target && i != 0 && i != j)
+                    {
+                        return new int[] { i, j };
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+            return new int[] { 0,0 };
+        }
+
+
+
+        public static int RemoveDuplicates(int[] nums)
+        {
+            int counter = 0;
+            int previousVal = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+
+                if (previousVal != 0)
+                {
+                    if (previousVal == nums[i])
+                    {
+                        nums[i] = nums[i++];
+                        counter++;
+                    }
+
+                    previousVal = nums[i];
+                }
+                else
+                {
+                    previousVal = nums[i];
+                    continue;
+                }
+            }
+            return counter;
+        }
+
+
+
+        //Given an integer, create a function that returns the next prime.If the number is prime, return the number itself.
+        //public static int NextPrime(int num)
+        //{
+
+        //}
+
+        //function that takes in n, a, b and returns the number of values raised to the nth power that lie in the range[a, b], inclusive.
+        public static int PowerRanger(int power, int min, int max)
+        {
+            int counter = 0;
+            for(int i=0; i<=max; i++)
+            {
+                double number = Math.Pow(i, power);
+                if(number >= min && number <= max)
+                {
+                    counter++;
+                }
+                else if( number < min)
+                {
+                    continue;
+                }
+                else
+                {
+                    return counter;
+                }
+            }
+            return counter;
+        }
+
+        //Create a function that takes a strings characters as ASCII and returns each characters hexadecimal value as a string. -- ConvertToHex("hello world")  "68 65 6c 6c 6f 20 77 6f 72 6c 64"
+        //public static string ConvertToHex(string inputword)
+        //{
+        //    string sResult = "";
+        //    foreach(char c in inputword)
+        //    {
+        //        string temp1 = c.ToString();
+        //        int temp3 = Convert.ToInt32(temp1);
+        //        var temp2 = BitConverter.
+        //        //string temp3 = temp2.ToString();
+                
+        //    }
+        //    return sResult;
+        //}
+
+
+        //print num of characters * number, input string jammed together like so: A4B5C2, result should be 'aaaabbbbbcc'
+        public static string printLetters(string str)
+        {
+            string totalString = "";
+            for(int i=0; i<str.Length; i+=2)
+            {
+                char num = str[(i+1)];
+                int convertNum = (int)Char.GetNumericValue(num); 
+                for(int j=0; j< convertNum; j++)
+                {
+                    totalString += str[i];
+                }
+            }
+            return totalString;
+        }
+
+        /*
+         * Create a function that takes the month and year (as integers) and returns the number of days in that month.
+         * Days(2, 2018) = 28
+         * Days(4, 654)  = 30
+         */
+        public static int Days(int month, int year)
+        {
+            try
+            {
+                DateTime date = new DateTime(year, month, 31);
+                return 31;
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    DateTime date = new DateTime(year, month, 30);
+                    return 30;
+                }
+                catch
+                {
+                    try
+                    {
+                        DateTime date = new DateTime(year, month, 29);
+                        return 29;
+                    }
+                    catch
+                    {
+                        return 28;
+                    }
+
+                }
+            }
+        }
+
+
+        /*
+         * returns whether a sentence is smooth: ie, the last letter of each word is the first letter of the next word
+         * <'example elephant test.' should pass> <'test elephant test' should fail>
+        */
+        public static bool IsSmooth(string sentence) 
+        {
+            bool flag = true;
+            char lastLetter = ' ';
+            string lower_sentence = sentence.ToLower();
+            string[] wholeSentence = lower_sentence.Split(' ');
+            for (int i = 0; i < wholeSentence.Length; i++)
+            {
+                string word = wholeSentence[i];
+                int wordLength = word.Length;
+
+                if (word[0] == lastLetter)
+                {
+                    lastLetter = word[wordLength - 1];
+                }
+                else
+                {
+                    if (lastLetter == ' ')
+                    {
+                        lastLetter = word[wordLength - 1];
+                        continue;
+                    }
+                    else
+                    {
+                        lastLetter = word[wordLength - 1];
+                        flag = false;
+                    }
+                }
+            }
+            return flag;
+        }
+
+        /*
+         * returns whether a string is valid hexcode. 
+         * #EF4321 is a valid hexCode, starts with #, has ints to 9 and letters to f
+        */
+        public static bool IsValidHexCode(string str)
+        {
+            bool flag = true;
+            if(str.Length != 7 || str[0] != '#')
+            {
+                flag = false;
+            }
+            List<char> acceptableChars = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+            string lowerstr = str.ToLower();
+            for (int i=1; i<str.Length; i++) //starts at 1 to avoid '#', acceptable chars doesn't contain # so #342#24 won't pass.
+            {
+                if (!acceptableChars.Contains(lowerstr[i]))
+                {
+                    flag = false;
+                }
+            }
+            return flag;
+        }
+
+        //public static int MysteryFunc(int num)
+        //{
+        //    string snum = num.ToString();
+        //    string revString = "";
+        //    for(int i=snum.Length -1; i>=0; i--)
+        //    {
+        //        revString += snum[i];
+        //    }
+        //    int revNum = Convert.ToInt32(revString);
+        //    int result = num - revNum;
+        //    if(result < 0)
+        //    {
+        //        return 0;
+        //    }
+        //    else if(result == 180)
+        //    {
+        //        return 198;
+        //    }
+        //    else
+        //    {
+        //        return result;
+        //    }
+        //}
+
+        /*
+         *checks how many distinct duplicate letters are in a string
+         * 'error' should return 1
+        */ 
+        public static int DuplicateCount(string str)
+        {
+            int iappearMorethanOnce = 0;
+            Dictionary<char, int> charArr = new Dictionary<char, int>();
+            foreach (char c in str)
+            {
+                if (charArr.ContainsKey(c))
+                {
+                    if (charArr[c] ==2)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        iappearMorethanOnce++;
+                        charArr[c] = 2;
+                    }
+                }
+                else
+                {
+                    charArr.Add(c, 1);
+                }
+            }
+            return iappearMorethanOnce;
+        }
+    }
